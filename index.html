@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/jquery.ui.rotatable.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/js/angular.min.js"></script>
+    <script type="text/javascript" src="/js/mobile-detect.js"></script>
+    <script type="text/javascript" src="/js/jquery.ui.rotatable.min.js"></script>
+    <script type="text/javascript" src="/js/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    <title>11Plan by iboommm</title>
+</head>
+
+<body ng-controller="home as ctrl">
+    <div class="top_menu_mobile" ng-class="{ 'hidden' : !ctrl.isMobile  }">
+        <button class="btn btn-warning round-0 btn-sm" ng-class="{ 'hidden' : (ctrl.isMobile && this.toggleMenuBar) }" ng-click="this.toggleMenuBar = !this.toggleMenuBar"><i class="fa fa-reply"></i> Setting </button>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="col-xs-12 col-md-6 p-0 m-0">
+            <div id="container-player" ng-class="{ 'hidden' : ctrl.isMobile && !this.toggleMenuBar }">
+                <div class="home-sheet">
+                    <div class="card h-100 rounded-0">
+                        <div class="card-header bg-danger row m-0 text-white font-weight-bolder p-1">
+                            <div class="col text-left">
+                                <i class="fa fa-home"></i> {{ ctrl.home.name}}
+                            </div>
+                            <div class="col text-right">
+                                <select name="" class="form-control-sm" ng-model="ctrl.home.plan" ng-change="ctrl.changePlan('home')">
+                                  <option ng-repeat="plan in ctrl.planSheet" ng-value="plan">{{ plan}}</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-6 p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-0" ng-repeat="(key, player) in ctrl.home.players ">
+                                        <div class="row m-0">
+                                            <div class="col-10 p-0">
+                                                <input type="text" class="w-100 form-control-sm border-0" ng-model="player.name" />
+                                            </div>
+                                            <div class="col-2 p-0">
+                                                <button class="btn btn-warning btn-sm btn-block rounded-0" ng-class="{ 'active' : (ctrl.teamSwapKey == key && ctrl.teamSwapPick == 'players' && ctrl.teamSwapSide == 'home')}" ng-click="ctrl.swapPlayer('home', 'players', key)">
+                            <i class="fa fa-exchange"></i>
+                          </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-0" ng-repeat="(key, player) in ctrl.home.subs">
+                                        <div class="row m-0">
+                                            <div class="col-10 p-0">
+                                                <input type="text" class="w-100 form-control-sm border-0" ng-model="player.name" />
+                                            </div>
+                                            <div class="col-2 p-0">
+                                                <button class="btn btn-warning btn-sm btn-block rounded-0" ng-class="{ 'active' : (ctrl.teamSwapKey == key && ctrl.teamSwapPick == 'subs' && ctrl.teamSwapSide == 'home')}" ng-click="ctrl.swapPlayer('home', 'subs', key)">
+                            <i class="fa fa-exchange"></i>
+                          </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="away-sheet">
+                    <div class="card h-100 rounded-0 ">
+                        <div class="card-header bg-primary row m-0 text-white font-weight-bolder  p-1">
+                            <div class="col text-left">
+                                <i class="fa fa-futbol-o"></i> {{ ctrl.away.name}}
+                            </div>
+                            <div class="col text-right">
+                                <select name="" class="form-control-sm" ng-model="ctrl.away.plan" ng-change="ctrl.changePlan('away')">
+                                  <option ng-repeat="plan in ctrl.planSheet" ng-value="plan">{{ plan}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-6 p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-0" ng-repeat="(key, player) in ctrl.away.players ">
+                                        <div class="row m-0">
+                                            <div class="col-10 p-0">
+                                                <input type="text" class="w-100 form-control-sm border-0" ng-model="player.name" />
+                                            </div>
+                                            <div class="col-2 p-0">
+                                                <button class="btn btn-warning btn-sm btn-block rounded-0" ng-class="{ 'active' : (ctrl.teamSwapKey == key && ctrl.teamSwapPick == 'players' && ctrl.teamSwapSide == 'away')}" ng-click="ctrl.swapPlayer('away', 'players', key)">
+                            <i class="fa fa-exchange"></i>
+                          </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-0" ng-repeat="(key, player) in ctrl.away.subs">
+                                        <div class="row m-0">
+                                            <div class="col-10 p-0">
+                                                <input type="text" class="w-100 form-control-sm border-0" ng-model="player.name" />
+                                            </div>
+                                            <div class="col-2 p-0">
+                                                <button class="btn btn-warning btn-sm btn-block rounded-0" ng-class="{ 'active' : (ctrl.teamSwapKey == key && ctrl.teamSwapPick == 'subs' && ctrl.teamSwapSide == 'away')}" ng-click="ctrl.swapPlayer('away', 'subs', key)">
+                            <i class="fa fa-exchange"></i>
+                          </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tools-menu " ng-class="{ 'hidden' : !ctrl.toolsMenu }">
+                    <div class="row h-100 p-0 m-0">
+
+                        <div class="col btn btn-dark btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.loadLineUpPopup()"><i class="fa fa-list-ol"></i> Load LineUp</div>
+                        <div class="col btn btn-dark btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.saveTemplatePopup()"><i class="fa fa-floppy-o"></i> Save Template</div>
+                        <div class="col btn btn-dark btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.loadTemplatePopup()"><i class="fa fa-download"></i> Load Template</div>
+                    </div>
+                </div>
+                <div class="arrow-menu " ng-class="{ 'hidden' : !ctrl.arrowMenu }">
+                    <div class="row h-100 p-0 m-0">
+                        <div class="col btn btn-info btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.addArrow('short')">Short</div>
+                        <div class="col btn btn-info btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.addArrow('mid')">Mid</div>
+                        <div class="col btn btn-info btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.addArrow('long')">Long</div>
+                    </div>
+                </div>
+                <div class="tools-sheet">
+                    <div class="row h-100 p-0 m-0">
+                        <div class="col btn btn-primary btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.reset()">
+                            <i class="fa fa-repeat"></i>
+                        </div>
+                        <div class="col btn btn-warning btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.swap()">
+                            <i class="fa fa-exchange"></i>
+                        </div>
+                        <div class="col btn btn-info btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.toggleArrowMenu()">
+                            <i class="fa fa-long-arrow-up"></i>
+                        </div>
+                        <div class="col btn btn-dark btn-block h-100 d-flex align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="ctrl.toggleToolsMenu()">
+                            <i class="fa fa-plus-circle"></i>
+                        </div>
+                        <div class="col btn btn-success btn-block h-100 align-items-center justify-content-center p-0 m-0 rounded-0" ng-click="this.toggleMenuBar = !this.toggleMenuBar" ng-class="{ 'd-none' : !ctrl.isMobile, 'd-flex' : ctrl.isMobile }">
+                            <i class="fa fa-save"></i>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6 p-0 m-0">
+            <div id="container-field">
+                <div class="ball" ng-style="ctrl.ball.position"></div>
+                <div ng-repeat="(key,player) in ctrl.home.players" class="player player-home player-home-{{ key }}" ng-style="player.position">
+                    <div class="layer">
+                        <div class="name noselect">{{ player.name }}</div>
+                    </div>
+                </div>
+                <div ng-repeat="(key,player) in ctrl.away.players" class="player player-away player-away-{{ key }}" ng-style="player.position">
+                    <div class="layer">
+                        <div class="name noselect">{{ player.name }}</div>
+                    </div>
+                </div>
+
+                <div ng-repeat="(key, arrow) in ctrl.arrows" class="arrow arrow-{{ arrow.mode }} arrow-{{ key }}" ng-style="arrow.position">
+                    <div class="arrow-rotate">
+                        <div class="arrow-remove arrow-remove-{{ arrow.mode }}" ng-click="ctrl.removeArrow(arrow)">
+                            <i class="fa fa-remove"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="loadTemplate" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Load Template</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Default Lineup
+                            <span class="badge badge-primary badge-pill btn" ng-click="ctrl.loadTemplate('/json/default.json')">Import</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Demo 1
+                            <span class="badge badge-primary badge-pill btn" ng-click="ctrl.loadTemplate('/json/ex1.json')">Import</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="profile in ctrl.profiles">
+                            <span>{{ profile.name }} <a href="javascript:;" ng-click="ctrl.removeData(ctrl.profiles,profile)"><i class="fa fa-trash text-danger"></i></a></span>
+                            <span class="badge badge-primary badge-pill btn" ng-click="ctrl.loadTemplateByCache(profile)">Import</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="saveTemplate" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Save Template</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                        </div>
+                        <input type="text" class="form-control" ng-model="ctrl.templateNameCache">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="ctrl.saveTemplateConfirm()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="loadLineUp" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Download Lineup</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Livescore URL</span>
+                        </div>
+                        <input type="text" class="form-control" ng-model="ctrl.urlLineup">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="ctrl.importLineup()">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

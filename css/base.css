@@ -1,0 +1,280 @@
+html,
+body {
+    overflow: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.top_menu_mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+div.ball {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+    border-radius: 50%;
+    background-image: url("/img/ball.png");
+    background-size: 100% 100%;
+    border: 2px solid #fff;
+}
+
+.arrow-long {
+    left: 80px;
+    top: 529px;
+    transform: rotate(1.07174rad);
+}
+
+.arrow-long>.arrow-rotate {
+    width: 200px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    background-image: url("/img/arrow-long.png");
+    background-size: 100% 100%;
+}
+
+.arrow-mid>.arrow-rotate {
+    width: 123px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    background-image: url("/img/arrow-mid.png");
+    background-size: 100% 100%;
+}
+
+.arrow-short>.arrow-rotate {
+    width: 60px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    background-image: url("/img/arrow-short.png");
+    background-size: 100% 100%;
+}
+
+.arrow-remove {
+    position: absolute;
+    color: red;
+}
+
+.arrow-remove-mid {
+    bottom: -2px;
+    left: 125px;
+}
+
+.arrow-remove-long {
+    bottom: -2px;
+    left: 200px;
+}
+
+.arrow-remove-short {
+    bottom: -2px;
+    left: 60px;
+}
+
+.ui-rotatable-handle {
+    left: -18px !important;
+    bottom: 1px !important;
+    position: absolute !important;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.player {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.player-home {
+    background: red;
+}
+
+.player-away {
+    background: blue;
+}
+
+div.player>div.layer {
+    float: left;
+    left: 50%;
+    position: relative;
+}
+
+div.player>div.layer>div.name {
+    font-size: 0.8rem;
+    top: 20px;
+    text-align: center;
+    color: aliceblue;
+    font-weight: bolder;
+    position: relative;
+    float: left;
+    left: -50%;
+    width: 100px;
+    text-shadow: 0px 0px 3px #000;
+}
+
+#draggable {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 200px;
+    height: 200px;
+}
+
+#drag {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto auto;
+    position: absolute;
+    border-radius: 50%;
+}
+
+#rotateable {
+    width: 200px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto auto;
+    position: absolute;
+    background: linear-gradient(90deg, #222, #444, #222);
+}
+
+#rotate {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    left: -20px;
+    top: 90px;
+    background: #fff;
+    border-radius: 50% 50% 50% 50%;
+}
+
+.home-sheet {
+    position: absolute;
+    width: 100%;
+    height: 45%;
+    top: 0;
+    left: 0;
+    background-color: #888;
+    overflow-x: auto;
+}
+
+.away-sheet {
+    position: absolute;
+    width: 100%;
+    height: 45%;
+    top: 45%;
+    left: 0;
+    background-color: teal;
+    overflow-x: auto;
+}
+
+.tools-sheet {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    top: 90%;
+    left: 0;
+    background-color: brown;
+}
+
+.arrow-menu {
+    position: absolute;
+    width: 100%;
+    height: 5%;
+    top: 85%;
+    left: 0;
+    z-index: 5;
+}
+
+.tools-menu {
+    position: absolute;
+    width: 100%;
+    height: 5%;
+    top: 85%;
+    left: 0;
+    z-index: 5;
+}
+
+.tools-sheet>div>div>i {
+    font-size: 2.5rem;
+}
+
+.drag {
+    position: absolute;
+    height: 58px;
+    width: 58px;
+    cursor: move;
+    top: 120px;
+}
+
+#container-field {
+    width: 100%;
+    height: 100vh;
+    border: 1px dashed #888;
+    background: url('../img/bg.png') no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+#container-player {
+    width: 100%;
+    height: 100vh;
+    border: 1px dashed #888;
+    background: #95a5a6;
+}
+
+.drag div {
+    font-size: 10px;
+    margin-top: 55px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.p-0 {
+    padding: 0 !important;
+}
+
+.m-0 {
+    margin: 0 !important;
+}
+
+.home-sheet::-webkit-scrollbar-track,
+.away-sheet::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+.home-sheet::-webkit-scrollbar,
+.away-sheet::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.home-sheet::-webkit-scrollbar-thumb,
+.away-sheet::-webkit-scrollbar-thumb {
+    background-color: #F90;
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent)
+}

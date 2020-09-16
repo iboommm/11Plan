@@ -1,0 +1,148 @@
+{
+    "teamHome": {
+        "name": "Team 1",
+        "plan": "4-4-2",
+        "players": {
+            "l0": [{
+                "number": 1,
+                "name": "1"
+            }],
+            "l1": [{
+                    "number": 2,
+                    "name": "2"
+                },
+                {
+                    "number": 5,
+                    "name": "5"
+                },
+                {
+                    "number": 4,
+                    "name": "4"
+                },
+                {
+                    "number": 3,
+                    "name": "3"
+                }
+            ],
+            "l2": [{
+                    "number": 7,
+                    "name": "7"
+                },
+                {
+                    "number": 6,
+                    "name": "6"
+                },
+                {
+                    "number": 8,
+                    "name": "8"
+                },
+                {
+                    "number": 11,
+                    "name": "11"
+                }
+            ],
+            "l3": [{
+                "number": 10,
+                "name": "10"
+            }, {
+                "number": 9,
+                "name": "9"
+            }]
+        },
+        "subs": [{
+                "name": "13"
+            },
+            {
+                "name": "14"
+            },
+            {
+                "name": "15"
+            },
+            {
+                "name": "16"
+            },
+            {
+                "name": "17"
+            },
+            {
+                "name": "18"
+            },
+            {
+                "name": "19"
+            }
+        ]
+    },
+    "teamAway": {
+        "name": "Arsenal",
+        "plan": "4-4-2",
+        "players": {
+            "l0": [{
+                "number": 1,
+                "name": "1"
+            }],
+            "l1": [{
+                    "number": 2,
+                    "name": "2"
+                },
+                {
+                    "number": 5,
+                    "name": "5"
+                },
+                {
+                    "number": 4,
+                    "name": "4"
+                },
+                {
+                    "number": 3,
+                    "name": "3"
+                }
+            ],
+            "l2": [{
+                    "number": 7,
+                    "name": "7"
+                },
+                {
+                    "number": 6,
+                    "name": "6"
+                },
+                {
+                    "number": 8,
+                    "name": "8"
+                },
+                {
+                    "number": 11,
+                    "name": "11"
+                }
+            ],
+            "l3": [{
+                "number": 10,
+                "name": "10"
+            }, {
+                "number": 9,
+                "name": "9"
+            }]
+        },
+        "subs": [{
+                "name": "13"
+            },
+            {
+                "name": "14"
+            },
+            {
+                "name": "15"
+            },
+            {
+                "name": "16"
+            },
+            {
+                "name": "17"
+            },
+            {
+                "name": "18"
+            },
+            {
+                "name": "19"
+            }
+        ]
+    }
+}

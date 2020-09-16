@@ -1,0 +1,152 @@
+{
+    "teamAway": {
+        "name": "Fulham",
+        "plan": "4-2-3-1",
+        "players": {
+            "l0": [{
+                "number": 12,
+                "name": "Marek Rodak"
+            }],
+            "l1": [{
+                    "number": 4,
+                    "name": "Denis Odoi"
+                },
+                {
+                    "number": 3,
+                    "name": "Marek Rodak"
+                },
+                {
+                    "number": 13,
+                    "name": "Tim Ream"
+                },
+                {
+                    "number": 23,
+                    "name": "Joe Bryan"
+                }
+            ],
+            "l2": [{
+                    "number": 21,
+                    "name": "Harrison Reed"
+                },
+                {
+                    "number": 10,
+                    "name": "Tom Cairney"
+                }
+            ],
+            "l3": [{
+                    "number": 7,
+                    "name": "Neeskens Kebano"
+                },
+                {
+                    "number": 25,
+                    "name": "Joshua Onomah"
+                },
+                {
+                    "number": 17,
+                    "name": "Ivan Cavaleiro"
+                }
+            ],
+            "l4": [{
+                "number": 47,
+                "name": "Aboubakar Kamara"
+            }]
+        },
+        "subs": [{
+                "name": "Alphonse Areola"
+            },
+            {
+                "name": "Aleksandar Mitrovic"
+            },
+            {
+                "name": "Anthony Knockaert"
+            },
+            {
+                "name": "Bobby Reid"
+            },
+            {
+                "name": "Maxime Le Marchand"
+            },
+            {
+                "name": "Cyrus Christie"
+            },
+            {
+                "name": "Andre Anguissa"
+            }
+        ]
+    },
+    "teamHome": {
+        "name": "Arsenal",
+        "plan": "3-4-3",
+        "players": {
+            "l0": [{
+                "number": 1,
+                "name": "Bernd Leno"
+            }],
+            "l1": [{
+                    "number": 4,
+                    "name": "Kieran Tierney"
+                },
+                {
+                    "number": 6,
+                    "name": "Gabriel"
+                },
+                {
+                    "number": 16,
+                    "name": "Rob Holding"
+                }
+            ],
+            "l2": [{
+                    "number": 15,
+                    "name": "Ainsley Maitland-Niles"
+                },
+                {
+                    "number": 34,
+                    "name": "Granit Xhaka"
+                },
+                {
+                    "number": 25,
+                    "name": "Mohamed Elneny"
+                },
+                {
+                    "number": 2,
+                    "name": "Hector Bellerin"
+                }
+            ],
+            "l3": [{
+                    "number": 14,
+                    "name": "Pierre-Emerick Aubameyang"
+                },
+                {
+                    "number": 9,
+                    "name": "Alexandre Lacazette"
+                },
+                {
+                    "number": 12,
+                    "name": "Willian"
+                }
+            ]
+        },
+        "subs": [{
+                "name": "Bukayo Saka"
+            },
+            {
+                "name": "Daniel Ceballos"
+            },
+            {
+                "name": "Nicolas Pepe"
+            },
+            {
+                "name": "Edward Nketiah"
+            },
+            {
+                "name": "Sead Kolasinac"
+            },
+            {
+                "name": "Matt Macey"
+            },
+            {
+                "name": "Joseph Willock"
+            }
+        ]
+    }
+}
