@@ -19,7 +19,7 @@ app.controller("home", function($scope, $http, $localStorage) {
     init = async() => {
         console.log($localStorage.profiles)
         this.profiles = $localStorage.profiles || [];
-        this.profileRecent = $localStorage.recentName || "/json/default.json";
+        this.profileRecent = $localStorage.recentName || "./json/default.json";
         await this.load(this.profileRecent);
         await this.draw();
     };

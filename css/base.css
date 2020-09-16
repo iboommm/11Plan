@@ -20,7 +20,7 @@ div.ball {
     cursor: pointer;
     position: absolute;
     border-radius: 50%;
-    background-image: url("/img/ball.png");
+    background-image: url("../img/ball.png");
     background-size: 100% 100%;
     border: 2px solid #fff;
 }
