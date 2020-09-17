@@ -244,8 +244,9 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-6 p-0 m-0">
-            <div id="container-field">
+            <div id="container-field" ng-class="{'bg-grid' : ctrl.triggerGrid}">
                 <div style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 1111;">
+                    <a class="btn btn-sm" href="javascript:;" ng-click="ctrl.triggerGrid = !ctrl.triggerGrid" ng-class="{'btn-light' : !ctrl.triggerGrid, 'btn-info' : ctrl.triggerGrid}"><i class="fa fa-table" > </i> Grid</a>
                     <a id="a-download" class="btn btn-primary btn-sm" href="javascript:;"><i class="fa fa-camera" > </i> Export</a>
                     <a id="a-download-temp" class="btn btn-primary btn-sm" style="display: none;" href="javascript:;">a</a>
                 </div>
