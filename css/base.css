@@ -7,6 +7,10 @@ body {
     display: none !important;
 }
 
+.tools-menu>div>div>i {
+    padding: 0.5rem;
+}
+
 .top_menu_mobile {
     position: fixed;
     top: 0;
@@ -36,7 +40,7 @@ div.ball {
     height: 20px;
     cursor: pointer;
     position: absolute;
-    background-image: url("/img/arrow-long.png");
+    background-image: url("../img/arrow-long.png");
     background-size: 100% 100%;
 }
 
@@ -100,14 +104,6 @@ div.player {
     position: absolute;
     border-radius: 50%;
     border: 2px solid #fff;
-}
-
-.player-home {
-    background: red;
-}
-
-.player-away {
-    background: blue;
 }
 
 div.player>div.layer {
@@ -198,6 +194,14 @@ div.player>div.layer>div.name {
     top: 90%;
     left: 0;
     background-color: brown;
+}
+
+.fa-tool-icon {
+    font-size: 1.5rem !important;
+}
+
+.pcr-button {
+    margin-left: 0.5rem;
 }
 
 .arrow-menu {

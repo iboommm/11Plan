@@ -1,23 +1,22 @@
 var app = angular.module("app", ['ngStorage']);
 
 app.controller("home", function($scope, $http, $localStorage) {
+    let self = this
+
     this.data = [];
     this.home = [];
     this.away = [];
     this.temp = [];
     this.arrows = [];
-    this.planSheet = ['3-5-2', '3-4-3', '4-4-2', '4-3-3', '4-4-1-1', '4-2-3-1', '4-3-2-1', '4-1-3-2', '5-3-2', '5-4-1']
+    this.planSheet = ['3-5-2', '3-4-3', '4-4-2', '4-3-3', '4-4-1-1', '4-1-4-1', '4-2-3-1', '4-3-2-1', '4-1-3-2', '5-3-2', '5-4-1']
     this.toggleMenuBar = false
+    this.colors = { home: 'red', away: 'blue' }
 
     this.flag_attack = 0;
     this.ball = { position: { top: "49%", left: "calc(50% - 15px)" } };
-    this.isMobile =
-        new MobileDetect(window.navigator.userAgent).mobile() != null ?
-        true :
-        false;
+    this.isMobile = new MobileDetect(window.navigator.userAgent).mobile() != null ? true : false;
 
     init = async() => {
-        console.log($localStorage.profiles)
         this.profiles = $localStorage.profiles || [];
         this.profileRecent = $localStorage.recentName || "./json/default.json";
         await this.load(this.profileRecent);
@@ -27,9 +26,8 @@ app.controller("home", function($scope, $http, $localStorage) {
     this.loadUrl = async(url) => {
         const params = btoa(url)
         await $http
-            .get("http://iboommm.com:6060/livescore/" + params)
+            .get("https://iboommm.com:6060/livescore/" + params)
             .then((res) => {
-                console.log(res.data);
                 const data = res.data;
                 let playersHome = _.compact(data.Lu[0].Ps.map(player => {
                     if (player.Pon != 'SUBSTITUTE_PLAYER' && player.Pon != 'COACH') {
@@ -74,7 +72,7 @@ app.controller("home", function($scope, $http, $localStorage) {
                         "subs": subAway
                     }
                 }
-                console.log(temp)
+                this.temp = temp;
                 this.data = temp;
                 this.arrows = [];
                 this.draw()
@@ -123,19 +121,22 @@ app.controller("home", function($scope, $http, $localStorage) {
 
     this.loadTemplateByCache = (template) => {
         this.data = _.clone(template.data);
-        console.log(template.data)
         if ("ball" in this.data) {
             $(".ball").css(this.data.ball.position);
-            console.log("loaded ball")
+        }
+
+        if ("colors" in this.data) {
+            this.colors = this.data.colors
+            $scope.$applyAsync();
+            self.pickr_home.setColorRepresentation(this.colors.home)
+            self.pickr_away.setColorRepresentation(this.colors.away)
         }
 
         if ("arrows" in this.data) {
             this.arrows = _.clone(this.data.arrows)
-            console.log("loaded arrows")
             this.arrows.forEach((arrow, key) => {
                 setTimeout(() => {
                     const red = arrow.position2.transform.match(/[-]{0,1}[\d]*[.]{0,1}[\d]+/g, '')[0]
-                    console.log(red)
                     $(".arrow-" + key + "> .arrow-rotate").rotatable({
                         stop: handleArrowDragStop,
                         angle: parseFloat(red)
@@ -210,7 +211,8 @@ app.controller("home", function($scope, $http, $localStorage) {
                 "subs": this.away.subs
             },
             "ball": {...this.ball },
-            "arrows": this.arrows
+            "arrows": this.arrows,
+            "colors": this.colors
         }
         if (typeof $localStorage.profiles != 'object') {
             $localStorage.profiles = [];
@@ -226,9 +228,11 @@ app.controller("home", function($scope, $http, $localStorage) {
         this.toolsMenu = !this.toolsMenu
     }
 
-    this.addArrow = (mode) => {
+    this.addArrow = async(mode) => {
         const randLeft = Math.floor(Math.random() * 160) + 31;
-        console.log(randLeft)
+        this.toggleMenuBar = false;
+        this.toggleToolsMenu = false;
+        this.toggleArrowMenu = false;
         this.arrows.push({ mode, position: { left: randLeft + "px", top: "529px", transform: 'rotate(1.07174rad)' } })
         setTimeout(() => {
             $(".arrow-rotate").rotatable({
@@ -237,7 +241,9 @@ app.controller("home", function($scope, $http, $localStorage) {
             $(".arrow").draggable({
                 stop: handleArrowDragStop
             });
+
         }, 200)
+
     }
 
     this.removeArrow = (arrow) => {
@@ -293,13 +299,12 @@ app.controller("home", function($scope, $http, $localStorage) {
                 snap: "#container-field",
                 stop: handleDragStop,
             });
-            console.log("set dragable for player");
         }, 200);
     };
 
     this.drawPlayer = (isHome, isOverPlan, mode = '') => {
         let temp = isHome ? this.home : this.away;
-        console.log("temp", temp)
+        let side = isHome ? 'home' : 'away';
         let planLength = isOverPlan ? 9 : 9;
         let playerTemp = [];
         let layerCount = 0;
@@ -323,14 +328,13 @@ app.controller("home", function($scope, $http, $localStorage) {
             if (layerCount++ === 0) {
                 playerTemp.push({
                     ...role[0],
-                    position: role[0]['position'] ? role[0]['position'] : { top: gkTop + "%", left: "calc(50% - 10px)" },
+                    position: role[0]['position'] ? {...role[0]['position'], background: this.colors[side] } : { top: gkTop + "%", left: "calc(50% - 10px)", background: this.colors[side] },
                 });
+                console.log(this.colors[side])
             } else {
                 let block = 100 / role.length;
                 let playerCount = 0;
                 for (player of role) {
-                    if (isHome)
-                        console.log("role", role)
                     let height = Math.abs(
                         (isHome ? 5 : 100) -
                         layerCount * (planLength * (!isOverPlan ? 1.15 : 1))
@@ -346,12 +350,11 @@ app.controller("home", function($scope, $http, $localStorage) {
                     }
                     playerTemp.push({
                         ...player,
-                        position: (mode == '' && player['position']) ? player.position : { top: height + "%", left: "calc(" + left + "% - 10px)" },
+                        position: (mode == '' && player['position']) ? player.position : { top: height + "%", left: "calc(" + left + "% - 10px)", background: this.colors[side] },
                     });
                 }
             }
         }
-        console.log("playerTemp", playerTemp)
         return playerTemp;
     };
 
@@ -472,7 +475,7 @@ app.controller("home", function($scope, $http, $localStorage) {
             console.log("before", this[side].players[key])
             this[side].players[key] = {
                 ...this[side].players[key],
-                position: { top: offsetYPos + "px", left: offsetXPos + "px" }
+                position: { top: offsetYPos + "px", left: offsetXPos + "px", background: this.colors[side] }
             }
 
         } catch {
@@ -504,7 +507,56 @@ app.controller("home", function($scope, $http, $localStorage) {
             stop: handleDragStop,
         });
 
+        const pickOptions = {
+            autoReposition: true,
+            showAlways: false,
+            closeWithKey: 'Escape',
 
+
+            swatches: [
+                'rgba(244, 67, 54, 1)',
+                'rgba(233, 30, 99, 1)',
+                'rgba(156, 39, 176, 1)',
+                'rgba(103, 58, 183, 1)',
+                'rgba(63, 81, 181, 1)',
+                'rgba(33, 150, 243, 1)',
+                'rgba(3, 169, 244, 1)',
+                'rgba(0, 188, 212, 1)',
+                'rgba(0, 150, 136, 1)',
+                'rgba(76, 175, 80, 1)',
+                'rgba(139, 195, 74, 1)',
+                'rgba(205, 220, 57, 1)',
+                'rgba(255, 235, 59, 1)',
+                'rgba(255, 193, 7, 1)',
+                'rgba(255, 255, 255, 1)'
+            ],
+
+            components: {
+                preview: true,
+                hue: true,
+                interaction: {
+                    input: true,
+                    clear: true,
+                    save: true
+                }
+            }
+        }
+        self.pickr_home = Pickr.create({...pickOptions, el: '.color-picker-home', theme: 'classic', default: 'red' });
+        self.pickr_home.on('save', (color, instance) => {
+            self.colors.home = color.toHEXA().toString();
+            self.draw()
+            instance.hide()
+            $scope.$applyAsync();
+        })
+
+
+        self.pickr_away = Pickr.create({...pickOptions, el: '.color-picker-away', theme: 'classic', default: 'blue' });
+        self.pickr_away.on('save', (color, instance) => {
+            self.colors.away = color.toHEXA().toString();
+            self.draw()
+            instance.hide()
+            $scope.$applyAsync();
+        })
     });
 
     init();
